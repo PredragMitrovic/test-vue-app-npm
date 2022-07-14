@@ -33,6 +33,7 @@
 				</div>
 			</div>
 		</nav>
+		
 		<div class="table-wrapper">
 			<template v-if="projects === 0 && gateways === 0 ">
 				<p class="font-weight-bold">All projects | All gateways</p>
@@ -144,6 +145,13 @@
 				<h1 v-if="getterProject.gatewayIds !== gateways && gateways !== 0" >There is no project to match the gateway!</h1>
 			</template>
 		</div>
+		
+		<form @submit.prevent="addReport">
+			<button type="submit"> Submit new user </button>
+		</form>
+		<div>
+			{{getterRreport}}
+		</div>
 	</main>
 </template>
 
@@ -158,19 +166,30 @@ export default {
 			date_from: new Date(),
 			date_to: new Date(),
 			projects: 0,
-			gateways: 0
+			gateways: 0,
+			dataPostSet: {
+				"from": '',
+				"to": '',
+				"projectId": '',
+				"gatewayId": '',
+			}
 		}
 	},
 	computed: {
 		...mapGetters([
 			'getterProject',
-			'getterGateways'
+			'getterGateways',
+			'getterRreport'
 		])
 	},
 	methods: {
+		async addReport(){
+			await this.CREATE_REPORT(this.dataPostSet);
+		},
 		...mapActions([
 			'GET_PROJECT',
-			'GET_GATEWAYS'
+			'GET_GATEWAYS',
+			'CREATE_REPORT'
 		])
 	},
 	created() {

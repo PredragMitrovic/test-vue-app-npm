@@ -3,7 +3,8 @@ import axios from 'axios'
 export const state = () => ({
     user: [],
     project: [],
-    gateways: []
+    gateways: [],
+    reports: [],
 })
 
 export const getters = {
@@ -15,6 +16,9 @@ export const getters = {
     },
     getterGateways: state => {
         return state.gateways
+    },
+    getterRreport: state => {
+        return state.reports
     }
 }
 
@@ -27,6 +31,9 @@ export const mutations = {
     },
     updateGateways: (state, data) => {
         state.gateways = data
+    },
+    ADD_REPORT: (state, data) => {
+        state.reports.unshift(data)
     },
 }
 
@@ -45,5 +52,10 @@ export const actions = {
         const callData = await axios.get('http://178.63.13.157:8090/mock-api/api/gateways')
         const users = callData.data
         context.commit('updateGateways', users.data)
-    }
+    },
+
+    async CREATE_REPORT(context, data) {
+        const callDataCreated = await axios.post('http://178.63.13.157:8090/mock-api/api/report', data)
+        context.commit('ADD_REPORT', callDataCreated.data)
+    },
 }
