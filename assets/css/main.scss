@@ -18,20 +18,8 @@ nav {
     position: absolute;
     left: 64px;
     width: 64px;
-    height: 100%;
     margin-left: -64px;
     overflow-y: auto;
-    -webkit-transition: all 0.5s ease;
-    -moz-transition: all 0.5s ease;
-    -o-transition: all 0.5s ease;
-    transition: all 0.5s ease;
-    z-index: 1000;
-    position: absolute;
-    left: 64px;
-    width: 64px;
-    height: 100%;
-    margin-left: -64px;
-    overflow: hidden;
     -webkit-transition: all 0.5s ease;
     -moz-transition: all 0.5s ease;
     -o-transition: all 0.5s ease;
@@ -47,7 +35,6 @@ nav {
 nav.navbar {
     z-index: 3000;
     border-bottom: 2px solid #F3F6F9;
-    z-index: 3000;
     .user-short {
         width: 43px;
         height: 43px;
@@ -86,9 +73,6 @@ nav.navbar {
             color: #757da4;
             &:hover {
                 text-decoration: none;
-                color: red;
-                text-decoration: none;
-                color: #005B96;
             }
             &:active {
                 text-decoration: none;
