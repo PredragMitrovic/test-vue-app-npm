@@ -33,7 +33,7 @@ export const mutations = {
         state.gateways = data
     },
     ADD_REPORT: (state, data) => {
-        state.reports.unshift(data)
+        state.reports = data
     },
 }
 

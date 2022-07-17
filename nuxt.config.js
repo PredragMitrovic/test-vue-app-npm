@@ -23,6 +23,7 @@ export default {
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-pluginsflink
   plugins: [
     { src: '~/plugins/vue-datepicker', ssr: false }, // datepicker plugin here
+    { src: '~/plugins/vue-charts', ssr: false }, // datepicker plugin here
   ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
