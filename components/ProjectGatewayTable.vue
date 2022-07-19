@@ -2,7 +2,10 @@
 		<table class="table">
 			<thead>
 			<tr>
-				<th scope="col">{{ getProjectProperty(projectId, 'name') }} | {{ getGatewayProperty(gatewayId, 'name') }}</th>
+				<th scope="col">{{ getProjectProperty(projectId, 'name') }} |
+					<template v-if="gatewayId !==0 && gatewayId !== -1">{{ getGatewayProperty(gatewayId, 'name') }}</template>
+					<template v-if="gatewayId === 0 ">All gateways</template>
+				</th>
 			</tr>
 			</thead>
 			<tbody>
@@ -11,7 +14,7 @@
 				<td>Transaction ID</td>
 				<td>Amount</td>
 			</tr>
-			<tr v-for="(report, index) in reports.data" :key="index">
+			<tr v-for="(report, index) in getterRreport.data" :key="index">
 				<td>{{report.created}}</td>
 				<td>{{report.paymentId}}</td>
 				<td>{{report.amount}}</td>
@@ -25,7 +28,6 @@ import {mapGetters, mapActions} from 'vuex';
 export default {
 	name: "ProjectGatewayTable",
 	props: {
-		reports: { type: Object },
 		projectId: {},
 		gatewayId: {}
 	},
@@ -51,7 +53,8 @@ export default {
 	computed: {
 		...mapGetters([
 			'getterProject',
-			'getterGateways'
+			'getterGateways',
+			'getterRreport'
 		])
 	},
 	
