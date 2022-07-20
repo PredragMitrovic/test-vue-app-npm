@@ -2,7 +2,7 @@
 	<div>
 		<template  >
 			<h3 class="float-right">
-				Total | {{getProjectAmount(getterRreport.data)}}
+				Total | {{getProjectAmount(getterReport.data)}}
 			</h3>
 		</template>
 		<table class="table">
@@ -22,7 +22,7 @@
 				<td>Project Id</td>
 				<td>Gateway Id</td>
 			</tr>
-			<tr v-for="(report, index) in getterRreport.data" :key="index">
+			<tr v-for="(report, index) in getterReport.data" :key="index">
 				<td>{{report.created}} {{report.projectId}} {{report.gatewayId}}</td>
 				<td>{{report.paymentId}}</td>
 				<td>{{report.amount}}</td>
@@ -74,7 +74,7 @@ export default {
 	
 	computed: {
 		splitProjectReport() {
-			return this.$store.getters.getterRreport.data.reduce( (acc, obj) => {
+			return this.$store.getters.getterReport.data.reduce( (acc, obj) => {
 				acc[obj.projectId] = acc[obj.projectId] || [];
 				acc[obj.projectId].push(obj);
 				return acc;
@@ -83,7 +83,7 @@ export default {
 		...mapGetters([
 			'getterProject',
 			'getterGateways',
-			'getterRreport'
+			'getterReport'
 		])
 	},
 	

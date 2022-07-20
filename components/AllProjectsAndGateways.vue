@@ -35,7 +35,7 @@
 				</div>
 			</div>
 		</template>
-		<h3>Total: {{getTotalAmount}}</h3>
+		<h3 class="ml-3">Total: {{getTotalAmount}}</h3>
 	</div>
 </template>
 
@@ -80,7 +80,7 @@ export default {
 
 	computed: {
 		splitProjectReport() {
-			 return this.$store.getters.getterRreport.data.reduce( (acc, obj) => {
+			 return this.$store.getters.getterReport.data.reduce( (acc, obj) => {
 				acc[obj.projectId] = acc[obj.projectId] || [];
 				acc[obj.projectId].push(obj);
 				return acc;
@@ -88,14 +88,14 @@ export default {
 		},
 
 		getTotalAmount() {
-			return this.$store.getters.getterRreport.data.reduce(function (total, report) {
+			return this.$store.getters.getterReport.data.reduce(function (total, report) {
 				return total + report.amount;
 			}, 0).toFixed(2);
 		},
 		...mapGetters([
 			'getterProject',
 			'getterGateways',
-			'getterRreport'
+			'getterReport'
 		])
 	},
 	

@@ -116,7 +116,7 @@ export default {
 		...mapGetters([
 			'getterProject',
 			'getterGateways',
-			'getterRreport'
+			'getterReport'
 		])
 	},
 	methods: {

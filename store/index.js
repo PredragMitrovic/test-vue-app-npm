@@ -17,7 +17,7 @@ export const getters = {
     getterGateways: state => {
         return state.gateways
     },
-    getterRreport: state => {
+    getterReport: state => {
         return state.reports
     }
 }

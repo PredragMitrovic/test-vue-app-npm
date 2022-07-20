@@ -1,7 +1,6 @@
 <template>
 	<div class="row">
 		<div class="col-7">
-			<h1>Total amount {{getTotalAmount}}</h1>
 			<template v-for="(reports, projectId, index) in splitProjectReport" >
 				<div class="table-wrapper">
 					<div class="accordion-wrapper">
@@ -122,7 +121,7 @@ export default {
 	computed: {
 
 		splitProjectReport() {
-			return this.$store.getters.getterRreport.data.reduce( (acc, obj) => {
+			return this.$store.getters.getterReport.data.reduce( (acc, obj) => {
 				acc[obj.projectId] = acc[obj.projectId] || [];
 				acc[obj.projectId].push(obj);
 				return acc;
@@ -155,14 +154,14 @@ export default {
 			}
 		},
 		getTotalAmount() {
-			return this.$store.getters.getterRreport.data.reduce(function (total, report) {
+			return this.$store.getters.getterReport.data.reduce(function (total, report) {
 				return total + report.amount;
 			}, 0).toFixed(2);
 		},
 		...mapGetters([
 			'getterProject',
 			'getterGateways',
-			'getterRreport'
+			'getterReport'
 		])
 	},
 	

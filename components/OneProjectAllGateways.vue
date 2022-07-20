@@ -120,7 +120,7 @@ export default {
 	
 	computed: {
 		splitGatewayReport() {
-			return this.$store.getters.getterRreport.data.reduce( (acc, obj) => {
+			return this.$store.getters.getterReport.data.reduce( (acc, obj) => {
 				acc[obj.gatewayId] = acc[obj.gatewayId] || [];
 				acc[obj.gatewayId].push(obj);
 				return acc;
@@ -155,14 +155,14 @@ export default {
 		},
 		
 		getTotalAmount() {
-			return this.$store.getters.getterRreport.data.reduce(function (total, report) {
+			return this.$store.getters.getterReport.data.reduce(function (total, report) {
 				return total + report.amount;
 			}, 0).toFixed(2);
 		},
 		...mapGetters([
 			'getterProject',
 			'getterGateways',
-			'getterRreport'
+			'getterReport'
 		])
 	},
 	
