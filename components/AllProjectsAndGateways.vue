@@ -15,18 +15,18 @@
 							<div class="table-wrapper">
 								<table class="table">
 									<tbody>
-									<tr>
-										<td>Data</td>
-										<td>Gateway</td>
-										<td>Transaction ID</td>
-										<td>Amount</td>
-									</tr>
-									<tr v-for="(report, index) in reports" :key="index">
-										<td>{{report.created}}</td>
-										<td>{{getGatewayProperty(report.gatewayId, 'name')}}</td>
-										<td>{{report.paymentId}}</td>
-										<td>{{report.amount}}</td>
-									</tr>
+										<tr>
+											<td>Data</td>
+											<td>Gateway</td>
+											<td>Transaction ID</td>
+											<td>Amount</td>
+										</tr>
+										<tr v-for="(report, index) in reports" :key="index">
+											<td>{{report.created}}</td>
+											<td>{{getGatewayProperty(report.gatewayId, 'name')}}</td>
+											<td>{{report.paymentId}}</td>
+											<td>{{report.amount}}</td>
+										</tr>
 									</tbody>
 								</table>
 							</div>
@@ -35,7 +35,7 @@
 				</div>
 			</div>
 		</template>
-		<h1>{{getTotalAmount}}</h1>
+		<h3>Total: {{getTotalAmount}}</h3>
 	</div>
 </template>
 
@@ -86,6 +86,7 @@ export default {
 				return acc;
 			}, {});
 		},
+
 		getTotalAmount() {
 			return this.$store.getters.getterRreport.data.reduce(function (total, report) {
 				return total + report.amount;

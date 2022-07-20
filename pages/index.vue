@@ -59,6 +59,7 @@ import {mapGetters, mapActions} from 'vuex';
 import ProjectGatewayTable from '@/components/ProjectGatewayTable';
 import AllProjectsAndGateways from '@/components/AllProjectsAndGateways';
 import AllProjectOneGateway from '@/components/AllProjectOneGateway';
+import OneProjectAllGateways from '@/components/OneProjectAllGateways';
 import Default from '@/components/Default';
 
 export default {
@@ -67,6 +68,7 @@ export default {
 		ProjectGatewayTable,
 		AllProjectsAndGateways,
 		AllProjectOneGateway,
+		OneProjectAllGateways,
 		Default
 	},
 
@@ -89,19 +91,19 @@ export default {
 				selectedTemplate = 'AllProjectsAndGateways'
 			} else if(this.projectId === -1 && this.gatewayId === 0) {
 				// Select project all gateways
-				selectedTemplate = 'projectList'
+				selectedTemplate = 'Default'
 			} else if(this.projectId === 0 && this.gatewayId === -1) {
 				// All projects select gateway
-				selectedTemplate = 'projectList'
+				selectedTemplate = 'Default'
 			} else if(typeof this.projectId === 'string' && this.projectId.length === 5 && this.gatewayId === 0) {
 				// Selected project all gateways
-				selectedTemplate = 'ProjectGatewayTable'
+				selectedTemplate = 'OneProjectAllGateways'
 			} else if(typeof this.projectId === 'string' && this.projectId.length === 5 && this.gatewayId === -1) {
 				// Selected project select gateway
-				selectedTemplate = 'projectList'
+				selectedTemplate = 'Default'
 			} else if(this.projectId === -1 && typeof this.gatewayId === 'string' && this.gatewayId.length === 5) {
 				// Select project selected gateway
-				selectedTemplate = 'projectList'
+				selectedTemplate = 'Default'
 			} else if(this.projectId === 0 && typeof this.gatewayId === 'string' && this.gatewayId.length === 5) {
 				// All projects selected gateway
 				selectedTemplate = 'AllProjectOneGateway'
@@ -119,15 +121,16 @@ export default {
 	},
 	methods: {
 		async onChange() {
+			const defaultValues = [-1, 0]
 			let payload = {
 				"from": new Date(this.date_from).toISOString().split('T')[0],
 				"to": new Date(this.date_to).toISOString().split('T')[0],
 			}
-			if (![-1, 0].includes(this.projects)){
-				payload.projectId = this.projects
+			if (!defaultValues.includes(this.projectId)){
+				payload.projectId = this.projectId
 			}
-			if (![-1, 0].includes(this.gateways)){
-				payload.gatewayId = this.gateways
+			if (!defaultValues.includes(this.gatewayId)){
+				payload.gatewayId = this.gatewayId
 			}
 			await this.CREATE_REPORT(payload);
 		},

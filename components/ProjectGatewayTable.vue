@@ -1,8 +1,14 @@
 <template>
+	<div>
+		<template  >
+			<h3 class="float-right">
+				Total | {{getProjectAmount(getterRreport.data)}}
+			</h3>
+		</template>
 		<table class="table">
 			<thead>
 			<tr>
-				<th scope="col">{{ getProjectProperty(projectId, 'name') }} |
+				<th scope="col">{{ getProjectProperty(projectId, 'name') }} | {{projectId}}
 					<template v-if="gatewayId !==0 && gatewayId !== -1">{{ getGatewayProperty(gatewayId, 'name') }}</template>
 					<template v-if="gatewayId === 0 ">All gateways</template>
 				</th>
@@ -13,14 +19,20 @@
 				<td>Data</td>
 				<td>Transaction ID</td>
 				<td>Amount</td>
+				<td>Project Id</td>
+				<td>Gateway Id</td>
 			</tr>
 			<tr v-for="(report, index) in getterRreport.data" :key="index">
-				<td>{{report.created}}</td>
+				<td>{{report.created}} {{report.projectId}} {{report.gatewayId}}</td>
 				<td>{{report.paymentId}}</td>
 				<td>{{report.amount}}</td>
+				<td>{{report.projectId}}</td>
+				<td>{{report.gatewayId}}</td>
 			</tr>
 			</tbody>
 		</table>
+
+	</div>
 </template>
 
 <script>
@@ -31,7 +43,17 @@ export default {
 		projectId: {},
 		gatewayId: {}
 	},
+	data() {
+		return {
+			total: 0
+		}
+	},
 	methods: {
+		getProjectAmount(project) {
+			return project.reduce(function (total, report) {
+				return total + report.amount;
+			}, 0).toFixed(2);
+		},
 		getProjectProperty(projectId, property) {
 			let project = this.$store.getters.getterProject.find((item) => {
 				return item.projectId === projectId
@@ -51,6 +73,13 @@ export default {
 	},
 	
 	computed: {
+		splitProjectReport() {
+			return this.$store.getters.getterRreport.data.reduce( (acc, obj) => {
+				acc[obj.projectId] = acc[obj.projectId] || [];
+				acc[obj.projectId].push(obj);
+				return acc;
+			}, {});
+		},
 		...mapGetters([
 			'getterProject',
 			'getterGateways',

@@ -1,14 +1,13 @@
 <template>
 	<div class="row">
 		<div class="col-7">
-			<h1>Total amount {{getTotalAmount}}</h1>
-			<template v-for="(reports, projectId, index) in splitProjectReport" >
+			<template v-for="(reports, gatewayId, index) in splitGatewayReport" >
 				<div class="table-wrapper">
 					<div class="accordion-wrapper">
 						<div class="accordion">
-							<input type="radio" name="radio-a" :id="'check' + projectId" checked>
-							<label class="accordion-label" :for="'check' + projectId">
-								{{ getProjectProperty(projectId, 'name') }}
+							<input type="radio" name="radio-a" :id="'check' + gatewayId" checked>
+							<label class="accordion-label" :for="'check' + gatewayId">
+								{{ getGatewayProperty(gatewayId, 'name') }}
 								<span >
 								Total | {{getProjectAmount(reports)}}
 								</span>
@@ -120,22 +119,22 @@ export default {
 	},
 	
 	computed: {
-
-		splitProjectReport() {
+		splitGatewayReport() {
 			return this.$store.getters.getterRreport.data.reduce( (acc, obj) => {
-				acc[obj.projectId] = acc[obj.projectId] || [];
-				acc[obj.projectId].push(obj);
+				acc[obj.gatewayId] = acc[obj.gatewayId] || [];
+				acc[obj.gatewayId].push(obj);
 				return acc;
 			}, {});
 		},
+		
 		getChartData() {
 			let labels = []
 			let colors = []
 			let dataset = []
-			Object.keys(this.splitProjectReport).forEach(key => {
-				labels.push(this.getProjectProperty(key, 'name'))
+			Object.keys(this.splitGatewayReport).forEach(key => {
+				labels.push(this.getGatewayProperty(key, 'name'))
 				colors.push("#" + ((1<<24)*Math.random() | 0).toString(16))
-				dataset.push(this.getProjectAmount(this.splitProjectReport[key]))
+				dataset.push(this.getProjectAmount(this.splitGatewayReport[key]))
 			});
 			return {
 				chartData: {
@@ -154,6 +153,7 @@ export default {
 				}
 			}
 		},
+		
 		getTotalAmount() {
 			return this.$store.getters.getterRreport.data.reduce(function (total, report) {
 				return total + report.amount;
